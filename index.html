@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindBite | The Psychology of Food</title>
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --bg: #f0f2f5;
+            --text: #2d3436;
+            --card: rgba(255, 255, 255, 0.9);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #a29bfe 0%, #74b9ff 100%);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background: var(--card);
+            backdrop-filter: blur(10px);
+            max-width: 800px;
+            width: 100%;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        h1 { color: var(--primary); margin-bottom: 10px; }
+        p.subtitle { color: #636e72; margin-bottom: 30px; }
+
+        .quiz-section {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border: 1px solid #dfe6e9;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        button.mood-btn {
+            background: white;
+            border: 2px solid var(--secondary);
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        button.mood-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        #result {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 40px;
+            text-align: left;
+        }
+
+        .info-card {
+            background: rgba(255,255,255,0.5);
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 0.9em;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        footer { margin-top: 30px; font-size: 0.8em; color: #636e72; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🧠 MindBite</h1>
+    <p class="subtitle">The Psychology & Nutrition Analyzer</p>
+
+    <div class="quiz-section">
+        <h3>How are you feeling right now?</h3>
+        <div class="options-grid">
+            <button class="mood-btn" onclick="analyze('Anxious')">😰 Anxious</button>
+            <button class="mood-btn" onclick="analyze('Tired')">🥱 Exhausted</button>
+            <button class="mood-btn" onclick="analyze('Sad')">😔 Low Mood</button>
+            <button class="mood-btn" onclick="analyze('Foggy')">☁️ Brain Fog</button>
+        </div>
+    </div>
+
+    <div id="result">
+        <h2 id="result-title"></h2>
+        <p id="result-desc"></p>
+        <div id="food-suggestion" style="font-weight: bold; font-size: 1.2em; color: var(--primary);"></div>
+    </div>
+
+    <div class="info-grid">
+        <div class="info-card">
+            <h4>🧪 The Gut-Brain Axis</h4>
+            <p>95% of your serotonin (the "happy" hormone) is produced in your gastrointestinal tract. What you eat literally dictates your mood.</p>
+        </div>
+        <div class="info-card">
+            <h4>🎓 Student Tip</h4>
+            <p>Avoid high-sugar snacks during exams. The "Dopamine Crash" leads to memory lapses and increased irritability.</p>
+        </div>
+    </div>
+
+    <footer>
+        Built for Digital Psychology Project &copy; 2024
+    </footer>
+</div>
+
+<script>
+    function analyze(mood) {
+        const resultDiv = document.getElementById('result');
+        const title = document.getElementById('result-title');
+        const desc = document.getElementById('result-desc');
+        const food = document.getElementById('food-suggestion');
+
+        resultDiv.style.display = 'block';
+        resultDiv.style.background = '#e1f5fe';
+
+        if (mood === 'Anxious') {
+            title.innerText = "The Cortisol Calm-Down";
+            desc.innerText = "When anxious, your brain is in 'fight or flight.' You need Magnesium to relax your muscles and regulate the nervous system.";
+            food.innerText = "Recommendation: Dark Chocolate (70%+) or Pumpkin Seeds.";
+        } else if (mood === 'Tired') {
+            title.innerText = "The ATP Recharge";
+            desc.innerText = "Fatigue is often a lack of steady glucose. Avoid caffeine spikes which cause a crash later.";
+            food.innerText = "Recommendation: Oatmeal with Walnuts (Slow-release energy).";
+        } else if (mood === 'Sad') {
+            title.innerText = "Serotonin Boost";
+            desc.innerText = "Low moods are often linked to low Tryptophan levels. You need healthy fats to support brain cell structure.";
+            food.innerText = "Recommendation: Salmon or Avocado on Toast.";
+        } else if (mood === 'Foggy') {
+            title.innerText = "Neural Focus";
+            desc.innerText = "Brain fog happens when inflammation is high. Antioxidants help 'clear the smoke' in your synapses.";
+            food.innerText = "Recommendation: Blueberries and Green Tea.";
+        }
+        
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>
